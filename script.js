@@ -7,17 +7,18 @@ const getCurrentWeatherData = async () => {
     const data = await response.json();
     const { periods } = data.properties;
     periods.forEach(period => {
-        let { name, startTime, endTime, temperature, temperatureUnit, icon, shortForecast} = period;
+        let { name, startTime, endTime, isDaytime, temperature, temperatureUnit, icon, shortForecast} = period;
         startTime = new Date(startTime).toLocaleString();
         endTime = new Date(endTime).toLocaleString();
         icon = icon.replace('medium', 'large');
-        main.innerHTML += `<div>
+        isDaytime = isDaytime ? 'day' : 'night';
+        main.innerHTML += `<div class="card ${isDaytime}">
                                 <h2>${name}</h2>
                                 <p>${startTime} &ndash; ${endTime}</p>
                                 <p>${temperature}&deg;${temperatureUnit}</p>
                                 <img src="${icon}">
                                 <p>${shortForecast}</p>
-                            </div><hr />`
+                            </div>`
     })
 }
 
