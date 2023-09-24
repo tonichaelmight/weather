@@ -17,14 +17,13 @@ main {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 1rem;
 }
 
 img {
     border: 1px solid black;
-    margin-bottom: .8rem;
 }
 
 details {
@@ -35,7 +34,7 @@ details p {
     font-size: 0.75rem;
     padding-left: 1.5rem;
     margin-top: .75rem;
-    letter-spacing: .08rem;
+    letter-spacing: .075rem;
     line-height: 1.35rem;
 }
 
@@ -55,11 +54,21 @@ details p {
                 radial-gradient(circle at bottom right, rgba(12, 9, 88, 0.6), rgba(137, 231, 255, 0.4));
 }
 
+.stats {
+    float: right;
+}
+
+.middle-banner {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
 .temperature {
     font-size: 3rem;
-    margin-top: 1.5rem;
-    display: inline;
-    float: right;
+}
+
+.humidity {
+    font-size: 2.25rem;
 }
 
 .short-forecast-description {
