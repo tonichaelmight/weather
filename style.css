@@ -78,3 +78,7 @@ details p {
 .timeframe {
     margin-bottom: 1rem;
 }
+
+.important {
+    background-color: rgb(255, 98, 98);
+}

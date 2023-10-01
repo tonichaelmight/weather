@@ -76,9 +76,8 @@ const getLatestObservation = async () => {
     const data = await response.json();
     const { properties } = data;
     
-    let { timestamp, isDaytime, temperature, relativeHumidity, icon, shortForecast} = properties;
+    let { timestamp, isDaytime, temperature, relativeHumidity, icon } = properties;
         timestamp = new Date(timestamp).toLocaleString();
-        timestamp = timestamp.replace(':00:00 ', '');
         icon = icon.replace('medium', 'large');
         main.innerHTML += `<div class="card ${isDaytime}">
                                 <p class="timeframe">${timestamp}</p>
@@ -92,6 +91,26 @@ const getLatestObservation = async () => {
                             </div>`;
 };
 
+const getHeadlines = async () => {
+    main.innerHTML = '';
+    const response = await fetch('https://api.weather.gov/offices/AKQ/headlines', {cache: 'no-cache'});
+    const data = await response.json();
+    const headlines = data['@graph'];
+
+    headlines.forEach(headline => {
+        let { important, issuanceTime, link, name, title, content } = headline;
+        important = important ? 'important' : '';
+        issuanceTime = new Date(issuanceTime).toLocaleString();
+        issuanceTime = issuanceTime.replace(/\:\d\d?\:\d\d?/, '');
+        main.innerHTML += `<div class="card ${important}">
+                                <p class="timeframe">${issuanceTime}</p>
+                                <h2><a href='${link}' target='_blank'>${title}</a></h2>
+                            </div>
+        `
+    })
+    console.log(headlines);
+}
+
 viewSelect.onchange = () => {
     switch(viewSelect.value) {
         case '7-day':
@@ -102,6 +121,9 @@ viewSelect.onchange = () => {
             break;
         case 'current observation':
             getLatestObservation();
+            break;
+        case 'headlines':
+            getHeadlines();
             break;
         default:
             throw new Error('uh oh bestie');
